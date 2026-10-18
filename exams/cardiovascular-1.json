@@ -1,0 +1,249 @@
+{
+  "format": "medvault-exam-v1",
+  "title": "Cardiovascular Physiology & Pharmacology: Practice Exam 1",
+  "subject": "Cardiovascular",
+  "author": "Claude",
+  "description": "15 questions (11 single best answer, 4 written) on cardiac electrophysiology, haemodynamics, reflex control and core cardiovascular drugs. Management follows Australian guidelines (Therapeutic Guidelines; National Heart Foundation of Australia and Cardiac Society of Australia and New Zealand).",
+  "questions": [
+    {
+      "id": "ap-phases",
+      "type": "mcq",
+      "stem": "The diagram shows a ventricular myocyte action potential.\n\nWhich labelled phase is produced mainly by **calcium influx through L-type (long-lasting) voltage-gated calcium channels**, balanced by potassium efflux?",
+      "image": "img/cardiac-action-potential.svg",
+      "imageCaption": "Ventricular myocyte action potential, phases labelled A–E",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "answer": "C",
+      "explanation": "**C is phase 2, the plateau.** Inward Ca^2+^ current through L-type (dihydropyridine-sensitive) channels is balanced by outward K^+^ current through the delayed rectifier channels (I~Kr~ and I~Ks~). This holds the membrane near 0 mV for about 200 ms.\n\n- **A, phase 0:** rapid depolarisation as fast voltage-gated Na^+^ channels (Na~v~1.5) open\n- **B, phase 1:** brief partial repolarisation; Na^+^ channels inactivate and the transient outward K^+^ current (I~to~) flows\n- **D, phase 3:** repolarisation; L-type channels inactivate and delayed rectifier K^+^ currents take over\n- **E, phase 4:** resting potential (about −90 mV), held by inward rectifier K^+^ channels (I~K1~)\n\nThe Ca^2+^ that enters in phase 2 triggers **calcium-induced calcium release** from the sarcoplasmic reticulum through ryanodine receptor 2, which couples excitation to contraction. The long plateau gives a long refractory period, so cardiac muscle cannot be tetanised.\n\n**Clinical link:** non-dihydropyridine calcium channel blockers (Vaughan Williams class IV antiarrhythmics) block L-type channels. Verapamil (a phenylalkylamine) and diltiazem (a benzothiazepine) reduce contractility and slow conduction through the sinoatrial and atrioventricular nodes.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition; Rang and Dale's Pharmacology"
+    },
+    {
+      "id": "frank-starling",
+      "type": "mcq",
+      "stem": "A healthy 22-year-old receives a rapid 1 L intravenous infusion of 0.9% sodium chloride. Left ventricular end-diastolic volume rises and stroke volume increases.\n\nWhich mechanism **best** explains the rise in stroke volume?",
+      "options": [
+        "Increased sympathetic stimulation of β~1~-adrenoceptors increasing contractility",
+        "Stretch of sarcomeres towards optimal length, with increased myofilament sensitivity to calcium",
+        "Reduced afterload from baroreceptor-mediated arteriolar vasodilation",
+        "Increased heart rate through the Bainbridge reflex",
+        "Increased calcium release from the sarcoplasmic reticulum driven by cyclic adenosine monophosphate"
+      ],
+      "answer": "B",
+      "explanation": "This is the **Frank–Starling mechanism**, an intrinsic property of cardiac muscle: a larger end-diastolic volume (preload) produces a stronger contraction.\n\n- More filling stretches sarcomeres towards their optimal length (about 2.0–2.2 µm), improving actin–myosin overlap.\n- **Length-dependent activation:** stretch increases troponin C sensitivity to Ca^2+^ and narrows the spacing between filaments (titin contributes).\n- It needs no nerves, so it still works in a denervated transplanted heart.\n\n**Why not the others:** A and E describe a rise in **contractility (inotropy)**, which shifts the whole Frank–Starling curve upward. A preload change moves along the same curve. The Bainbridge reflex (D) raises heart rate, not stroke volume per beat.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition; Boron and Boulpaep Medical Physiology"
+    },
+    {
+      "id": "baroreflex",
+      "type": "mcq",
+      "stem": "A 25-year-old stands up quickly after lying supine. Within **seconds**, which of the following occurs as part of the baroreceptor reflex?",
+      "options": [
+        "Increased firing of carotid sinus afferents in the glossopharyngeal nerve",
+        "Decreased firing of carotid sinus afferents in the glossopharyngeal nerve, leading to increased sympathetic outflow",
+        "Increased vagal (parasympathetic) output to the sinoatrial node",
+        "Decreased renin release as the main immediate effector",
+        "Release of atrial natriuretic peptide causing venoconstriction"
+      ],
+      "answer": "B",
+      "explanation": "Standing pools about 500–800 mL of blood in the legs. Venous return, stroke volume and mean arterial pressure all fall.\n\n1. Carotid sinus baroreceptors (afferents in the glossopharyngeal nerve, cranial nerve IX) and aortic arch baroreceptors (vagus nerve, cranial nerve X) are stretched less, so they **fire less**.\n2. The nucleus tractus solitarius in the medulla reduces its inhibition of the rostral ventrolateral medulla.\n3. **Sympathetic outflow rises:** heart rate and contractility increase, arterioles constrict (raising total peripheral resistance), and veins constrict.\n4. **Vagal output falls**, from the nucleus ambiguus and dorsal motor nucleus.\n\n**Why not the others:** renin release **rises** on standing, but over minutes, not seconds. Atrial natriuretic peptide falls when the atria are stretched less, and it is a vasodilator anyway.\n\n**Clinical link:** orthostatic hypotension is a sustained fall of ≥20 mmHg systolic or ≥10 mmHg diastolic within 3 minutes of standing. Prazosin is an α~1~-adrenoceptor antagonist that blocks reflex vasoconstriction, which is why it causes first-dose postural hypotension.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition"
+    },
+    {
+      "id": "poiseuille",
+      "type": "mcq",
+      "stem": "An atherosclerotic plaque halves the radius of an arterial segment. Assuming laminar flow and all other variables constant, by what factor does the **resistance** of that segment increase?",
+      "options": [
+        "2",
+        "4",
+        "8",
+        "16",
+        "32"
+      ],
+      "answer": "D",
+      "explanation": "**Poiseuille's law:** R = 8ηL / (πr^4^), where η is viscosity, L is length and r is radius.\n\nResistance is proportional to 1/r^4^, so halving the radius gives (1/0.5)^4^ = **16 times** the resistance. At the same pressure gradient, flow falls to 1/16.\n\n- This fourth-power relationship is why **arterioles** are the main site of blood pressure and flow regulation: a small change in radius has a large effect.\n- Past a tight stenosis, flow can become turbulent (high Reynolds number). This produces a bruit and raises resistance further.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition"
+    },
+    {
+      "id": "acei-cough",
+      "type": "mcq",
+      "stem": "A 58-year-old woman started on **ramipril** for hypertension develops a persistent dry cough 3 weeks later.\n\nWhat is the mechanism of this adverse effect?",
+      "options": [
+        "Accumulation of angiotensin II in bronchial smooth muscle",
+        "Accumulation of bradykinin and substance P, because angiotensin-converting enzyme breaks them down less",
+        "Bronchospasm caused by hyperkalaemia",
+        "Blockade of β~2~-adrenoceptors in the airways",
+        "Raised aldosterone causing airway oedema"
+      ],
+      "answer": "B",
+      "explanation": "**Ramipril is an angiotensin-converting enzyme (ACE) inhibitor.** ACE converts angiotensin I to angiotensin II, and it is also **kininase II**, the enzyme that breaks down bradykinin.\n\n- Blocking ACE lets **bradykinin and substance P** build up in the airways. These sensitise vagal sensory C-fibres and increase prostaglandin production, causing a dry cough in up to about 1 in 5 patients.\n- The same bradykinin mechanism causes **angioedema**. It is rarer, can be life-threatening and is more common in people of African descent.\n- **Management (Therapeutic Guidelines):** stop the ACE inhibitor and switch to an **angiotensin II receptor blocker** (sartan), such as candesartan or irbesartan. These block the angiotensin II type 1 (AT~1~) receptor and do not affect bradykinin. The cough usually settles within 1–4 weeks but can take up to 3 months.\n\n**Why not the others:** ACE inhibitors **lower** angiotensin II and aldosterone. Hyperkalaemia is an ACE inhibitor effect but does not cause cough. β~2~ blockade (non-selective beta-blockers) causes bronchospasm, not an ACE inhibitor cough.",
+      "reference": "Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "hfref-mortality",
+      "type": "mcq",
+      "stem": "A 67-year-old man has heart failure with reduced ejection fraction (left ventricular ejection fraction 30%).\n\nWhich of the following medicines **improves symptoms but has NOT been shown to reduce mortality**?",
+      "options": [
+        "Bisoprolol",
+        "Spironolactone",
+        "Dapagliflozin",
+        "Furosemide",
+        "Sacubitril/valsartan"
+      ],
+      "answer": "D",
+      "explanation": "**Furosemide is a loop diuretic.** It inhibits the Na^+^–K^+^–2Cl^−^ cotransporter (NKCC2) in the thick ascending limb of the loop of Henle. It relieves congestion (oedema and breathlessness), but no trial has shown that it reduces mortality. Use the lowest dose that keeps the patient euvolaemic.\n\n**Medicines that reduce mortality in heart failure with reduced ejection fraction (the \"four pillars\"):**\n- **Beta-blockers:** bisoprolol, carvedilol, metoprolol succinate (controlled-release) and nebivolol. They block β~1~-adrenoceptors, reducing harmful chronic sympathetic activation. Start low and go slow.\n- **Renin–angiotensin system inhibition:** an ACE inhibitor, an angiotensin II receptor blocker, or an **angiotensin receptor–neprilysin inhibitor** such as sacubitril/valsartan. Sacubitril inhibits neprilysin, which raises natriuretic peptide levels; valsartan blocks AT~1~ receptors.\n- **Mineralocorticoid receptor antagonists:** spironolactone and eplerenone. They block aldosterone, reducing sodium retention and myocardial fibrosis. Monitor potassium and renal function.\n- **Sodium–glucose cotransporter 2 inhibitors:** dapagliflozin and empagliflozin. They block sodium and glucose reabsorption in the proximal tubule, and the benefit is independent of diabetes status (DAPA-HF 2019 and EMPEROR-Reduced 2020 trials).",
+      "reference": "National Heart Foundation of Australia and Cardiac Society of Australia and New Zealand: Guidelines for the prevention, detection and management of heart failure in Australia (2018); Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "co-calc",
+      "type": "mcq",
+      "stem": "A patient has a heart rate of 70 beats/min, a left ventricular end-diastolic volume of 120 mL and an end-systolic volume of 50 mL.\n\nWhat are the **cardiac output** and **ejection fraction**?",
+      "options": [
+        "4.9 L/min; 58%",
+        "8.4 L/min; 42%",
+        "3.5 L/min; 42%",
+        "4.9 L/min; 42%",
+        "8.4 L/min; 58%"
+      ],
+      "answer": "A",
+      "explanation": "- **Stroke volume** = end-diastolic volume − end-systolic volume = 120 − 50 = **70 mL**\n- **Cardiac output** = stroke volume × heart rate = 70 mL × 70/min = 4900 mL/min = **4.9 L/min**\n- **Ejection fraction** = stroke volume ÷ end-diastolic volume = 70 ÷ 120 = **58%**\n\n**Common traps:** 8.4 L/min comes from multiplying end-diastolic volume by heart rate. 42% is end-systolic volume ÷ end-diastolic volume.\n\n**Ejection fraction categories:** normal ≥50%; mildly reduced 41–49%; reduced ≤40%.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition"
+    },
+    {
+      "id": "digoxin-k",
+      "type": "mcq",
+      "stem": "A 78-year-old woman with atrial fibrillation takes **digoxin**. She is started on furosemide for peripheral oedema. A week later she has nausea, vomiting, yellow-tinged vision and a heart rate of 44 beats/min.\n\nWhich electrolyte disturbance has most likely precipitated digoxin toxicity?",
+      "options": [
+        "Hyperkalaemia",
+        "Hypokalaemia",
+        "Hypernatraemia",
+        "Hypocalcaemia",
+        "Hypermagnesaemia"
+      ],
+      "answer": "B",
+      "explanation": "**Digoxin is a cardiac glycoside.** It inhibits the Na^+^/K^+^-ATPase in cardiac myocytes, which works as follows:\n- Intracellular Na^+^ rises, so the Na^+^/Ca^2+^ exchanger removes less Ca^2+^.\n- More Ca^2+^ is stored in the sarcoplasmic reticulum, which increases contractility (positive inotropy).\n- Digoxin also increases vagal tone, slowing conduction through the atrioventricular node. This is how it controls ventricular rate in atrial fibrillation.\n\nDigoxin binds the pump at its **K^+^ binding site**. In **hypokalaemia** there is less competition, so more digoxin binds and toxicity follows. Furosemide causes hypokalaemia and hypomagnesaemia, which both raise the risk.\n\n**Other risk factors:** renal impairment (digoxin is cleared by the kidneys), older age, hypercalcaemia, hypothyroidism, and interacting drugs such as amiodarone and verapamil.\n\n**Features of toxicity:** nausea and vomiting, visual change (xanthopsia), confusion and almost any arrhythmia. Look for atrioventricular block, frequent ventricular ectopics and bidirectional ventricular tachycardia.\n\n**Pearl:** in **acute** overdose, **hyperkalaemia** is a marker of severity because the poisoned Na^+^/K^+^ pumps cannot move K^+^ into cells. Severe toxicity is treated with digoxin-specific antibody fragments (Fab); discuss with the Poisons Information Centre (13 11 26).",
+      "reference": "Therapeutic Guidelines: Cardiovascular (eTG complete, current edition); Therapeutic Guidelines: Toxicology and Toxinology"
+    },
+    {
+      "id": "ivc-phase",
+      "type": "mcq",
+      "stem": "During which phase of the cardiac cycle are **all four heart valves closed** while **left ventricular pressure rises rapidly**?",
+      "options": [
+        "Rapid ventricular filling",
+        "Isovolumetric contraction",
+        "Rapid ejection",
+        "Isovolumetric relaxation",
+        "Atrial systole"
+      ],
+      "answer": "B",
+      "explanation": "**Isovolumetric contraction**\n- **Starts** when ventricular pressure exceeds atrial pressure. The mitral and tricuspid valves close, producing the **first heart sound (S1)**. On the electrocardiogram this is just after the QRS complex.\n- The ventricle contracts against closed valves, so volume stays constant while pressure climbs steeply.\n- **Ends** when left ventricular pressure exceeds aortic diastolic pressure (about 80 mmHg). The aortic valve then opens and ejection begins.\n\n**The trap:** in **isovolumetric relaxation** all valves are also closed, but pressure **falls**. That phase begins with closure of the aortic and pulmonary valves, the **second heart sound (S2)**.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition"
+    },
+    {
+      "id": "coronary-flow",
+      "type": "mcq",
+      "stem": "In a healthy person at rest, when does **most** blood flow through the left coronary artery to the left ventricular myocardium occur?",
+      "options": [
+        "During systole, when aortic pressure is highest",
+        "During diastole",
+        "Equally in systole and diastole",
+        "Only during isovolumetric contraction",
+        "Only during atrial systole"
+      ],
+      "answer": "B",
+      "explanation": "In systole, the contracting left ventricle squeezes its own intramyocardial vessels, and pressure in the wall exceeds perfusion pressure. The **subendocardium** is affected most. As a result, around 70–80% of left coronary flow occurs in **diastole**.\n\nRight coronary flow is spread more evenly across the cycle, because right ventricular pressure is much lower.\n\n**Clinical links:**\n- **Tachycardia** shortens diastole more than systole. This cuts perfusion time just as oxygen demand rises, which is why tachycardia provokes ischaemia.\n- **Beta-blockers** (β~1~-adrenoceptor antagonists such as metoprolol) are anti-anginal partly because they slow the heart and lengthen diastole.\n- The subendocardium is the first region to become ischaemic, which explains ST depression in subendocardial ischaemia.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition"
+    },
+    {
+      "id": "gtn",
+      "type": "mcq",
+      "stem": "A 62-year-old man with stable angina uses **sublingual glyceryl trinitrate** spray.\n\nWhat is the **main** mechanism by which it relieves angina?",
+      "options": [
+        "Coronary vasoconstriction diverting flow to ischaemic regions",
+        "Mainly venodilation, reducing preload and myocardial oxygen demand",
+        "Blockade of β~1~-adrenoceptors, reducing heart rate",
+        "Blockade of L-type calcium channels in cardiac myocytes",
+        "Inhibition of platelet aggregation through cyclo-oxygenase"
+      ],
+      "answer": "B",
+      "explanation": "**Glyceryl trinitrate is an organic nitrate (nitrovasodilator).**\n- It is converted to **nitric oxide**, which activates soluble guanylyl cyclase and raises **cyclic guanosine monophosphate (cGMP)**.\n- cGMP activates protein kinase G, which dephosphorylates myosin light chains and relaxes smooth muscle.\n- At usual doses it dilates **veins more than arteries**. Venous return and preload fall, so ventricular wall tension (Laplace's law) and myocardial oxygen demand fall too. It also dilates epicardial coronary arteries and relieves spasm.\n\n**Practice points (Therapeutic Guidelines and the Heart Foundation angina action plan):**\n- Sit down before taking a dose. If pain persists after 5 minutes, take another dose. If it persists after 10 minutes, or is severe or worsening, call 000.\n- **Contraindicated** with phosphodiesterase-5 inhibitors, because both raise cGMP and can cause profound hypotension. Avoid within 24 hours of sildenafil or vardenafil, or 48 hours of tadalafil.\n- Also avoid in hypotension (systolic below 90 mmHg) and suspected right ventricular infarction.\n- Long-acting nitrates need a **nitrate-free interval** of 8–12 hours to prevent tolerance.\n- Headache and flushing are common.\n\n**The distractors:** C describes beta-blockers, D describes calcium channel blockers, and E describes aspirin.",
+      "reference": "Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "raas-short",
+      "type": "short",
+      "stem": "A 30-year-old loses 1.2 L of blood in a motor vehicle accident.\n\nDescribe the **renin–angiotensin–aldosterone system** response: the stimuli for renin release, how angiotensin II is formed, and the main actions of angiotensin II.",
+      "modelAnswer": "**Stimuli for renin release** (from the juxtaglomerular cells of the afferent arteriole):\n1. Lower renal perfusion pressure, sensed by the intrarenal baroreceptor in the afferent arteriole\n2. Less NaCl delivered to the **macula densa** in the distal tubule\n3. Sympathetic stimulation of β~1~-adrenoceptors on juxtaglomerular cells\n\n**Formation of angiotensin II:**\n- Renin cleaves **angiotensinogen** (made in the liver) to form **angiotensin I**.\n- **Angiotensin-converting enzyme**, mainly on pulmonary vascular endothelium, converts angiotensin I to **angiotensin II**.\n\n**Actions of angiotensin II** (through angiotensin II type 1 receptors):\n- **Arteriolar vasoconstriction**, raising total peripheral resistance and blood pressure\n- **Efferent arteriolar constriction** more than afferent, which maintains glomerular filtration rate when renal perfusion is low\n- **Aldosterone release** from the zona glomerulosa of the adrenal cortex. Aldosterone increases epithelial sodium channel and Na^+^/K^+^-ATPase activity in principal cells of the collecting duct, so more Na^+^ and water are reabsorbed and more K^+^ is secreted.\n- More **proximal tubule Na^+^ reabsorption**, through the Na^+^/H^+^ exchanger\n- **Antidiuretic hormone release** and **thirst**, via the hypothalamus\n- More sympathetic activity and noradrenaline release",
+      "markingPoints": [
+        "Renin is released from juxtaglomerular cells of the afferent arteriole",
+        "Stimulus: lower renal perfusion pressure (intrarenal baroreceptor)",
+        "Stimulus: less NaCl delivered to the macula densa",
+        "Stimulus: sympathetic β~1~-adrenoceptor stimulation",
+        "Renin converts angiotensinogen (from the liver) to angiotensin I",
+        "Angiotensin-converting enzyme (pulmonary endothelium) converts angiotensin I to angiotensin II",
+        "Angiotensin II causes systemic arteriolar vasoconstriction",
+        "Angiotensin II constricts the efferent arteriole, maintaining glomerular filtration rate",
+        "Angiotensin II stimulates aldosterone, increasing Na^+^ reabsorption and K^+^ secretion in the collecting duct",
+        "Angiotensin II stimulates antidiuretic hormone release and thirst"
+      ],
+      "explanation": "**Clinical link:** efferent arteriolar constriction is why angiotensin-converting enzyme inhibitors and angiotensin II receptor blockers can cause acute kidney injury when glomerular filtration rate depends on angiotensin II. Examples are bilateral renal artery stenosis, volume depletion, and use with non-steroidal anti-inflammatory drugs and diuretics (the \"triple whammy\"). Check urea, electrolytes and creatinine within 1–2 weeks of starting or increasing the dose.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition; Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "inferior-stemi",
+      "type": "short",
+      "stem": "A 64-year-old man has 40 minutes of central crushing chest pain. The electrocardiogram shows **ST elevation in leads II, III and aVF** with reciprocal ST depression in I and aVL. Blood pressure is 105/70 mmHg.\n\n(a) Which coronary artery is most likely occluded?\n(b) Outline immediate management according to Australian guidelines.",
+      "modelAnswer": "**(a)** This is an **inferior ST-elevation myocardial infarction**, most often from occlusion of the **right coronary artery** (about 80%, in right-dominant circulations). The left circumflex artery is the culprit in left-dominant systems. ST elevation greater in III than in II, with reciprocal depression in I and aVL, favours the right coronary artery.\n\n**(b) Immediate management:**\n- Assess ABCDE, apply continuous cardiac monitoring with defibrillator access, insert an intravenous cannula and send bloods (high-sensitivity troponin, full blood count, urea/electrolytes/creatinine, coagulation, glucose, lipids).\n- **Record right-sided leads (V4R)** to look for right ventricular infarction, and posterior leads (V7–V9).\n- **Aspirin 300 mg** orally (chewed). Aspirin irreversibly inhibits cyclo-oxygenase-1, blocking platelet thromboxane A~2~.\n- **Oxygen only if SpO~2~ is below 93%.** Routine oxygen is not recommended.\n- **Analgesia:** titrated intravenous opioid (fentanyl or morphine, μ-opioid receptor agonists). Use sublingual glyceryl trinitrate only if systolic blood pressure is above 90 mmHg and there is **no right ventricular infarction** and no recent phosphodiesterase-5 inhibitor use.\n- **Reperfusion (symptoms under 12 hours):** **primary percutaneous coronary intervention** if achievable within 90 minutes of first medical contact. If not, give **fibrinolysis** within 30 minutes (if there are no contraindications), then transfer to a centre that can perform percutaneous coronary intervention. An example is tenecteplase, a recombinant tissue plasminogen activator that converts plasminogen to plasmin.\n- **P2Y~12~ inhibitor** (blocks the platelet ADP receptor): ticagrelor or prasugrel before primary percutaneous coronary intervention, or clopidogrel with fibrinolysis.\n- **Anticoagulation:** unfractionated heparin (which potentiates antithrombin) during percutaneous coronary intervention, or enoxaparin with fibrinolysis.\n- **Watch for bradycardia and atrioventricular block.** The right coronary artery usually supplies the sinoatrial and atrioventricular nodes. Treat with atropine, a muscarinic antagonist.",
+      "markingPoints": [
+        "Identifies the right coronary artery (left circumflex if left-dominant)",
+        "Right-sided electrocardiogram (V4R) to look for right ventricular infarction",
+        "Aspirin 300 mg orally, with mechanism (irreversible cyclo-oxygenase inhibition)",
+        "Oxygen only if SpO~2~ is below 93%",
+        "Avoids or uses caution with nitrates in right ventricular infarction or hypotension (preload-dependent)",
+        "Primary percutaneous coronary intervention within 90 minutes of first medical contact, otherwise fibrinolysis within 30 minutes",
+        "P2Y~12~ inhibitor and anticoagulation (for example heparin)",
+        "Monitors for bradyarrhythmia and heart block (atropine)"
+      ],
+      "explanation": "**Why right ventricular infarction matters:** the right ventricle becomes **preload-dependent**. Nitrates and opioids, which both cause venodilation, can then cause profound hypotension. Clinical signs are hypotension, a raised jugular venous pressure and clear lung fields. Treat hypotension with careful intravenous fluid boluses.",
+      "reference": "National Heart Foundation of Australia and Cardiac Society of Australia and New Zealand: Australian clinical guidelines for the management of acute coronary syndromes (2016); Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "sa-node",
+      "type": "short",
+      "stem": "Explain the **ionic basis of the sinoatrial node pacemaker potential**, and describe how sympathetic and parasympathetic stimulation change heart rate.",
+      "modelAnswer": "**Pacemaker action potential (sinoatrial node):**\n- **Phase 4 (pacemaker potential):** there is no stable resting potential. The maximum diastolic potential is about −60 mV. The **\"funny\" current (I~f~)** flows through hyperpolarisation-activated cyclic nucleotide-gated (HCN) channels, which open at negative potentials and carry mainly inward Na^+^. Late in phase 4, **T-type (transient) Ca^2+^ channels** open and decreasing K^+^ efflux adds to the slow depolarisation.\n- **Phase 0 (upstroke):** at threshold (about −40 mV), **L-type Ca^2+^ channels** open. The upstroke is slower than in ventricular muscle because fast Na^+^ channels are inactivated at these potentials.\n- **Phase 3:** repolarisation through delayed rectifier K^+^ channels.\n\n**Sympathetic stimulation** (noradrenaline at β~1~-adrenoceptors):\n- Gs protein activates adenylyl cyclase, raising **cyclic adenosine monophosphate**. This increases I~f~ (cyclic AMP binds HCN channels directly) and L-type Ca^2+^ current.\n- The phase 4 slope gets **steeper** and threshold is reached sooner, so heart rate rises (positive chronotropy).\n\n**Parasympathetic stimulation** (acetylcholine from the vagus nerve at M~2~ muscarinic receptors):\n- Gi protein lowers cyclic AMP, which reduces I~f~ and Ca^2+^ current.\n- The Gβγ subunits open **G protein-gated inwardly rectifying K^+^ channels (I~K,ACh~)**, which hyperpolarise the maximum diastolic potential.\n- The slope is flatter and starts from a more negative potential, so heart rate falls (negative chronotropy).",
+      "markingPoints": [
+        "No stable resting potential; maximum diastolic potential about −60 mV",
+        "Funny current (I~f~) through HCN channels, mainly Na^+^ influx, activated by hyperpolarisation",
+        "T-type Ca^2+^ channels contribute late in phase 4",
+        "Upstroke is from L-type Ca^2+^ channels, not fast Na^+^ channels",
+        "Sympathetic: β~1~ receptor, Gs, more cyclic AMP, more I~f~ and Ca^2+^ current, steeper slope",
+        "Parasympathetic: M~2~ receptor, Gi, less cyclic AMP, plus K^+^ channel (I~K,ACh~) opening and hyperpolarisation",
+        "Links the slope of phase 4 and the starting potential to heart rate"
+      ],
+      "explanation": "**Drug links:**\n- **Ivabradine** blocks HCN channels (the I~f~ current). It slows sinus rate without reducing contractility. It is used in heart failure with reduced ejection fraction when sinus rate stays ≥70–75/min despite a maximally tolerated beta-blocker.\n- **Atropine** is a muscarinic antagonist that blocks vagal M~2~ effects. It is first-line for symptomatic bradycardia.\n- **Beta-blockers** (β~1~ antagonists) reduce the cyclic AMP-driven increase in I~f~.",
+      "reference": "Guyton and Hall Textbook of Medical Physiology, 14th edition; Rang and Dale's Pharmacology; Therapeutic Guidelines: Cardiovascular (eTG complete, current edition)"
+    },
+    {
+      "id": "warfarin-lmwh",
+      "type": "short",
+      "stem": "Compare **warfarin** and **enoxaparin**: drug class, mechanism of action, onset, monitoring and reversal.",
+      "modelAnswer": "**Warfarin: vitamin K antagonist (oral)**\n- **Mechanism:** inhibits vitamin K epoxide reductase complex subunit 1 (VKORC1), so less reduced vitamin K is regenerated. This stops γ-carboxylation of **factors II, VII, IX and X** and of the natural anticoagulants **proteins C and S**.\n- **Onset:** delayed by 3–5 days, because existing factors must be cleared (prothrombin half-life is about 60 hours). Protein C falls first (short half-life), causing a brief **prothrombotic** phase. That is why acute venous thromboembolism needs overlapping heparin until the INR has been in range for at least 24 hours, and why warfarin can cause skin necrosis.\n- **Monitoring:** **international normalised ratio (INR)**. The usual target is 2–3; mechanical mitral valves have higher targets. There are many interactions through cytochrome P450 2C9. Amiodarone, metronidazole and fluconazole raise the INR; rifampicin and carbamazepine lower it. Diet affects it through vitamin K intake.\n- **Reversal:** **vitamin K** (phytomenadione). For major bleeding, add **prothrombin complex concentrate (Prothrombinex-VF)** with intravenous vitamin K, and give fresh frozen plasma only if needed (Australasian Society of Thrombosis and Haemostasis consensus).\n- Teratogenic: avoid in pregnancy.\n\n**Enoxaparin: low molecular weight heparin (subcutaneous)**\n- **Mechanism:** a pentasaccharide sequence binds **antithrombin** and greatly speeds up its inactivation of **factor Xa**. The short chains cannot bridge antithrombin to thrombin well, so the anti-Xa to anti-IIa ratio is about 3–4 to 1.\n- **Onset:** rapid, with peak effect 3–5 hours after subcutaneous injection. Dosing by body weight is predictable.\n- **Monitoring:** not routinely needed. Measure **anti-Xa levels** in renal impairment, at extremes of body weight and in pregnancy. It is **renally cleared**, so reduce the dose when creatinine clearance is below 30 mL/min. Check platelets because of the risk of heparin-induced thrombocytopenia (lower than with unfractionated heparin).\n- **Reversal:** **protamine sulfate** reverses it only partly (about 60% of anti-Xa activity).\n- It is the anticoagulant of choice in pregnancy.",
+      "markingPoints": [
+        "Warfarin is a vitamin K antagonist that inhibits VKORC1",
+        "Warfarin reduces factors II, VII, IX, X and proteins C and S",
+        "Warfarin has delayed onset and an early prothrombotic phase, so needs heparin bridging",
+        "Warfarin is monitored with the INR (target usually 2–3) and has many CYP2C9 interactions",
+        "Warfarin reversal: vitamin K, plus prothrombin complex concentrate (Prothrombinex-VF) for major bleeding",
+        "Enoxaparin is a low molecular weight heparin that potentiates antithrombin, mainly against factor Xa",
+        "Enoxaparin is renally cleared: reduce the dose if creatinine clearance is below 30 mL/min; anti-Xa monitoring in special groups",
+        "Enoxaparin is only partly reversed by protamine"
+      ],
+      "explanation": "**Exam tip:** compare anticoagulants under the same headings each time: class, target, onset, route, monitoring, clearance, reversal and special populations. Direct oral anticoagulants fit the same frame. Apixaban and rivaroxaban are direct factor Xa inhibitors (reversed by andexanet alfa); dabigatran is a direct thrombin inhibitor (reversed by idarucizumab).",
+      "reference": "Therapeutic Guidelines: Cardiovascular (eTG complete, current edition); Tran HA et al. An update of consensus guidelines for warfarin reversal. Med J Aust 2013;198(4):198-9"
+    }
+  ]
+}
