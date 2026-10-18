@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" font-family="Helvetica, Arial, sans-serif">
+  <rect width="600" height="330" fill="#ffffff"/>
+  <!-- axes -->
+  <path d="M70 30V290H580" stroke="#1b1c55" stroke-width="2.5" fill="none"/>
+  <g font-size="14" fill="#1b1c55" text-anchor="end">
+    <text x="62" y="64">+20</text>
+    <text x="62" y="102">0</text>
+    <text x="62" y="179">−40</text>
+    <text x="62" y="275">−90</text>
+  </g>
+  <g stroke="#1b1c55" stroke-width="2"><path d="M66 59h8M66 98h8M66 175h8M66 271h8"/></g>
+  <path d="M74 98H580" stroke="#1b1c55" stroke-opacity=".15" stroke-dasharray="6 6"/>
+  <text x="20" y="165" font-size="15" fill="#1b1c55" transform="rotate(-90 20 165)" text-anchor="middle">Membrane potential (mV)</text>
+  <text x="330" y="318" font-size="15" fill="#1b1c55" text-anchor="middle">Time (ms) →</text>
+  <!-- action potential -->
+  <path d="M74 271H140L146 59Q152 54 160 86C180 96 260 93 340 106C380 116 400 250 430 268Q440 271 460 271H576"
+        stroke="#ef476f" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- labels -->
+  <g font-size="17" font-weight="700" fill="#fff" text-anchor="middle">
+    <circle cx="118" cy="165" r="15" fill="#5a63f0"/><text x="118" y="171">A</text>
+    <circle cx="176" cy="58" r="15" fill="#5a63f0"/><text x="176" y="64">B</text>
+    <circle cx="255" cy="66" r="15" fill="#5a63f0"/><text x="255" y="72">C</text>
+    <circle cx="430" cy="185" r="15" fill="#5a63f0"/><text x="430" y="191">D</text>
+    <circle cx="520" cy="246" r="15" fill="#5a63f0"/><text x="520" y="252">E</text>
+  </g>
+  <g stroke="#5a63f0" stroke-width="2" stroke-dasharray="3 4">
+    <path d="M131 160L141 150"/><path d="M168 70L158 82"/><path d="M255 82V94"/><path d="M416 185H400"/><path d="M520 262V268"/>
+  </g>
+</svg>
