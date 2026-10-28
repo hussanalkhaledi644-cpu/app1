@@ -120,7 +120,10 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
 .gloss div{break-inside:avoid;padding:2px 0}
 .gloss b{font-family:var(--font-mono);font-weight:500}
 .sources{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.sources a{color:var(--isch)}
+.sources a,.node a{color:var(--isch)}
+.side{margin-top:40px;border-top:2px dashed var(--line);padding-top:22px;scroll-margin-top:16px}
+.mini th,.mini td{padding:4px 6px}
+.mini td:last-child{font-family:var(--font-mono);text-align:right;white-space:nowrap}
 .foot{margin-top:28px;display:flex;flex-direction:column;gap:12px}
 .disclaimer{font-size:13px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px}
 
@@ -177,6 +180,11 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
   </div>
   <div class="arrow"></div>
   <div class="node decide">
+    <h3>Have the symptoms fully resolved?</h3>
+    <p style="font-size:13.5px"><b>Yes</b> → probable transient ischaemic attack: go to the <a href="#tia">transient ischaemic attack pathway</a>. <b>No</b> (any persisting deficit) → treat as stroke and continue below.</p>
+  </div>
+  <div class="arrow label"><span>still symptomatic</span></div>
+  <div class="node decide">
     <h3>CT brain: is there haemorrhage?</h3>
     <p style="font-size:13.5px;color:var(--muted)">CT cannot reliably distinguish infarct early; a normal CT in the first hours is expected in ischaemic stroke.</p>
   </div>
@@ -232,7 +240,7 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
       <span class="moa"><i>Antiplatelet, thienopyridine P2Y12 inhibitor</i>: prodrug activated by hepatic cytochrome P450 2C19; irreversibly blocks the P2Y12 adenosine diphosphate receptor, preventing glycoprotein IIb/IIIa activation.</span></div>
     <div class="drug"><b>Alternative: ticagrelor 180 mg load, then 90 mg twice daily + aspirin (30 days, THALES; CHANCE-2)</b>
       <span class="moa"><i>Antiplatelet, cyclopentyl-triazolopyrimidine P2Y12 inhibitor</i>: direct-acting, reversible P2Y12 blockade; useful if a cytochrome P450 2C19 loss-of-function carrier.</span></div>
-    <p class="pearl">Transient ischaemic attack: assess urgently, ideally within 24 h; MRI with diffusion-weighted imaging and carotid imaging. Do not rely on the ABCD² score alone (Age, Blood pressure, Clinical features, Duration, Diabetes) to triage.</p>
+    <p class="pearl">The same dual antiplatelet regimen applies to high-risk transient ischaemic attack; see the <a href="#tia">transient ischaemic attack pathway</a>.</p>
   </div>
   <div class="arrow"></div>
   <div class="node isch">
@@ -329,7 +337,7 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
 
 <!-- STAGE 3 -->
 <div class="bus" aria-hidden="true" style="margin-top:2px"></div>
-<div class="mech">
+<div class="mech" id="mechanism">
   <div class="node prev">
     <h3>Atrial fibrillation / cardioembolic</h3>
     <p>Oral anticoagulation, <b>not</b> antiplatelets. Direct oral anticoagulants preferred over warfarin.</p>
@@ -432,6 +440,90 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
   </div>
 </div>
 
+<!-- TIA PATHWAY -->
+<section class="side" id="tia">
+<div class="stage"><span class="tag">Side pathway</span><h2>Transient ischaemic attack (TIA)</h2></div>
+<div class="col">
+  <div class="node isch">
+    <h3>What it is and why it is urgent</h3>
+    <ul>
+      <li><b>Tissue-based definition:</b> a transient episode of neurological dysfunction caused by focal brain, spinal cord or retinal ischaemia <b>without acute infarction</b>. Most episodes last &lt; 1 hour. If magnetic resonance imaging (MRI) with diffusion-weighted imaging shows an infarct, it is a stroke, even if symptoms resolved.</li>
+      <li>Stroke risk is front-loaded: roughly half of the 90-day risk falls in the first 48 hours. Urgent assessment and treatment cut 90-day stroke risk by about 80% (EXPRESS, SOS-TIA studies).</li>
+      <li>Retinal TIA (amaurosis fugax: painless, transient monocular vision loss, "curtain coming down") is managed the same way.</li>
+    </ul>
+    <p class="pearl">Common mimics: migraine aura (positive, spreading symptoms), focal seizure, syncope, hypoglycaemia, transient global amnesia, peripheral vertigo, functional symptoms. Isolated dizziness, confusion or loss of consciousness are rarely a TIA.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node decide">
+    <h3>Symptoms still present, or recurring right now?</h3>
+    <p style="font-size:13.5px"><b>Yes</b> → this is a stroke until proven otherwise: call triple zero (000) / code stroke and go back to <b>Stage 1</b> (may be a thrombolysis candidate). <b>No</b> → urgent TIA assessment below.</p>
+  </div>
+  <div class="arrow label"><span>fully resolved</span></div>
+  <div class="node isch urgent">
+    <span class="clock">Specialist assessment within 24 h</span>
+    <h3>Risk stratify and decide where to assess</h3>
+    <p>The Stroke Foundation recommends that <b>all</b> patients with suspected TIA get urgent assessment and imaging, ideally within 24 hours, through an emergency department or rapid-access TIA clinic. Admit or seek immediate specialist review if any high-risk feature is present:</p>
+    <ul>
+      <li>Crescendo TIA (2 or more episodes within a week)</li>
+      <li>Known or newly found atrial fibrillation, or already on an anticoagulant</li>
+      <li>Symptomatic carotid stenosis already known</li>
+      <li>Motor weakness or speech disturbance, or symptoms lasting &gt; 10 minutes</li>
+      <li>Investigations cannot be done promptly as an outpatient</li>
+    </ul>
+    <div class="tbl"><table class="mini">
+      <tr><th colspan="2">ABCD² score (Age, Blood pressure, Clinical features, Duration, Diabetes)</th></tr>
+      <tr><td>Age ≥ 60 years</td><td>1</td></tr>
+      <tr><td>Blood pressure ≥ 140/90 mmHg at first assessment</td><td>1</td></tr>
+      <tr><td>Clinical: unilateral weakness</td><td>2</td></tr>
+      <tr><td>Clinical: speech disturbance without weakness</td><td>1</td></tr>
+      <tr><td>Duration ≥ 60 min / 10–59 min</td><td>2 / 1</td></tr>
+      <tr><td>Diabetes</td><td>1</td></tr>
+    </table></div>
+    <p class="warn">Score ≥ 4 is "high risk", but do not use ABCD² alone to decide who gets urgent care: it misses atrial fibrillation and carotid stenosis, which drive the highest early risk.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node isch">
+    <span class="clock">Complete within 24 h</span>
+    <h3>Investigations</h3>
+    <ul>
+      <li><b>Brain imaging:</b> MRI with diffusion-weighted imaging preferred (detects infarct in up to about 1 in 3, which predicts recurrence); non-contrast computed tomography (CT) if MRI not available, mainly to exclude haemorrhage and mimics.</li>
+      <li><b>Vessel imaging:</b> CT angiography (arch to vertex) or carotid duplex ultrasound for carotid and intracranial stenosis.</li>
+      <li><b>Cardiac:</b> 12-lead electrocardiogram (ECG); Holter or prolonged rhythm monitoring if no cause found; echocardiography if cardioembolism suspected or patient is young.</li>
+      <li><b>Bloods:</b> full blood count, electrolytes and creatinine, glucose and glycated haemoglobin (HbA1c), fasting lipids, coagulation profile.</li>
+      <li>Amaurosis fugax in a patient ≥ 50: check erythrocyte sedimentation rate and C-reactive protein for <b>giant cell arteritis</b>, and arrange urgent ophthalmology review.</li>
+    </ul>
+  </div>
+  <div class="arrow"></div>
+  <div class="node isch">
+    <span class="clock">Start immediately once haemorrhage excluded</span>
+    <h3>Immediate treatment</h3>
+    <p><b>High-risk TIA (ABCD² ≥ 4) or minor stroke, non-cardioembolic:</b> dual antiplatelet therapy within 24 h of onset for <b>21 days</b>, then single antiplatelet (CHANCE, POINT).</p>
+    <div class="drug"><b>Aspirin 300 mg stat, then 100 mg daily</b><span class="moa"><i>Antiplatelet, salicylate</i>: irreversibly inhibits cyclo-oxygenase-1, blocking platelet thromboxane A2 production.</span></div>
+    <div class="drug"><b>+ Clopidogrel 300–600 mg load, then 75 mg daily</b><span class="moa"><i>Antiplatelet, thienopyridine P2Y12 inhibitor</i>: prodrug (activated by cytochrome P450 2C19) that irreversibly blocks the platelet adenosine diphosphate P2Y12 receptor.</span></div>
+    <p><b>Lower-risk TIA:</b> single antiplatelet (aspirin 100 mg, clopidogrel 75 mg, or aspirin + modified-release dipyridamole) long term.</p>
+    <p><b>TIA with atrial fibrillation:</b> start an oral anticoagulant promptly (no infarct, so bleeding risk is low; usually day 1). Do not add an antiplatelet.</p>
+    <div class="drug"><b>Apixaban 5 mg twice daily (or rivaroxaban / dabigatran)</b><span class="moa"><i>Direct oral anticoagulant</i>: apixaban and rivaroxaban directly inhibit factor Xa; dabigatran directly inhibits thrombin.</span></div>
+    <p><b>Start at the same visit:</b> high-intensity statin and blood pressure lowering (see <b>Stage 3</b>).</p>
+    <div class="drug"><b>Atorvastatin 40–80 mg daily</b><span class="moa"><i>Statin, HMG-CoA (3-hydroxy-3-methylglutaryl coenzyme A) reductase inhibitor</i>: lowers low-density lipoprotein cholesterol and stabilises plaque.</span></div>
+  </div>
+  <div class="arrow"></div>
+  <div class="node decide">
+    <h3>Cause identified?</h3>
+    <p style="font-size:13.5px">Manage exactly as for ischaemic stroke: <a href="#mechanism">secondary prevention by mechanism</a>. Symptomatic carotid stenosis 70–99% (North American Symptomatic Carotid Endarterectomy Trial criteria) → carotid endarterectomy within 2 weeks, ideally sooner; risk of recurrence is highest in the first days.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node prev">
+    <h3>Before the patient leaves</h3>
+    <ul>
+      <li><b>Safety-net:</b> if symptoms return, call triple zero (000) immediately; do not wait to see if they settle. Teach FAST (Face, Arms, Speech, Time).</li>
+      <li><b>Driving (Austroads <em>Assessing Fitness to Drive</em>):</b> private licence, no driving for at least 2 weeks after a TIA; commercial licence, longer stand-down (check current standard). Recurrent TIAs need specialist clearance.</li>
+      <li>Written plan of medications and follow-up; letter to the general practitioner; neurology or TIA clinic follow-up.</li>
+      <li>Lifestyle measures and smoking cessation as in Stage 3.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
 <div class="foot">
   <details>
     <summary>Abbreviations and trial names</summary>
@@ -457,6 +549,10 @@ summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
       <div><b>ELAN</b> Early versus Late initiation of direct oral Anticoagulants in post-ischaemic stroke patients with atrial fibrillation</div>
       <div><b>OPTIMAS</b> Optimal Timing of Anticoagulation After Acute Ischaemic Stroke</div>
       <div><b>ESUS</b> embolic stroke of undetermined source</div>
+      <div><b>TIA</b> transient ischaemic attack</div>
+      <div><b>ABCD²</b> Age, Blood pressure, Clinical features, Duration, Diabetes</div>
+      <div><b>EXPRESS</b> Early use of Existing Preventive Strategies for Stroke</div>
+      <div><b>SOS-TIA</b> a Paris 24-hour-access TIA clinic study</div>
       <div><b>PROGRESS</b> Perindopril Protection Against Recurrent Stroke Study</div>
     </div>
   </details>
