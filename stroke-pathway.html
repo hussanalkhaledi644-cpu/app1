@@ -1,0 +1,477 @@
+<title>Stroke Pathway (Australia)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one vertical clinical pathway; forks into ischaemic / haemorrhagic lanes, re-merges at stroke unit, then fans out by stroke mechanism for secondary prevention. */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --fg:#1b2330; --muted:#5a6575; --line:#c4ccd8;
+  --isch:#1f5fbf; --isch-soft:#e6eefb;
+  --haem:#b4232f; --haem-soft:#fbe8ea;
+  --prev:#1d7a4c; --prev-soft:#e3f3ea;
+  --drug:#a35a00; --drug-soft:#fff3e0;
+  --decide:#5b3fa8; --decide-soft:#eee9fb;
+  --font-display:"Literata", Georgia, "Times New Roman", serif;
+  --font-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11161e; --panel:#19202b; --fg:#e4e9f1; --muted:#9aa6b6; --line:#3a4555;
+  --isch:#7aa9f0; --isch-soft:#1a2a44;
+  --haem:#f08690; --haem-soft:#3a1d22;
+  --prev:#6fcf9c; --prev-soft:#173327;
+  --drug:#f0b25c; --drug-soft:#33270f;
+  --decide:#b6a2f0; --decide-soft:#272040;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#11161e; --panel:#19202b; --fg:#e4e9f1; --muted:#9aa6b6; --line:#3a4555;
+  --isch:#7aa9f0; --isch-soft:#1a2a44;
+  --haem:#f08690; --haem-soft:#3a1d22;
+  --prev:#6fcf9c; --prev-soft:#173327;
+  --drug:#f0b25c; --drug-soft:#33270f;
+  --decide:#b6a2f0; --decide-soft:#272040;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:clamp(28px,4vw,40px)}
+h2{font-size:22px}
+h3{font-size:16px;font-family:var(--font-body);font-weight:600}
+p{margin:0}
+ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.mono,.dose{font-family:var(--font-mono);font-size:.86em}
+.lede{color:var(--muted);max-width:70ch;margin-top:8px}
+header{display:flex;flex-direction:column;gap:14px;margin-bottom:26px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;border:2px solid}
+
+.stage{display:flex;align-items:baseline;gap:12px;margin:8px 0 12px;padding-top:6px}
+.stage .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+.node{background:var(--panel);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.node.isch{border-color:var(--isch);border-top-width:5px}
+.node.haem{border-color:var(--haem);border-top-width:5px}
+.node.prev{border-color:var(--prev);border-top-width:5px}
+.node.decide{background:var(--decide-soft);border:2px dashed var(--decide);text-align:center;align-items:center}
+.node.decide h3{color:var(--decide)}
+.node.urgent{box-shadow:0 0 0 3px var(--haem-soft)}
+.clock{display:inline-block;font-family:var(--font-mono);font-size:12px;padding:2px 8px;border-radius:99px;background:var(--haem-soft);color:var(--haem);font-weight:500;align-self:flex-start}
+.decide .clock{align-self:center}
+
+.drug{background:var(--drug-soft);border-left:4px solid var(--drug);border-radius:6px;padding:8px 10px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.drug b{color:var(--fg)}
+.drug .moa{color:var(--muted);font-size:13px}
+.drug .moa i{color:var(--drug);font-style:normal;font-weight:600}
+.pearl{font-size:13px;color:var(--prev);border-top:1px dashed var(--line);padding-top:6px}
+.warn{font-size:13px;color:var(--haem);font-weight:500}
+
+.arrow{display:flex;justify-content:center;height:30px;position:relative}
+.arrow::before{content:"";width:2px;background:var(--line);height:100%}
+.arrow::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top:9px solid var(--line);border-bottom:0}
+.arrow.label span{position:absolute;top:4px;left:calc(50% + 10px);font-size:12px;color:var(--muted);font-family:var(--font-mono)}
+
+.col{max-width:760px;width:100%;margin:0 auto;display:flex;flex-direction:column}
+
+.fork{position:relative;height:34px}
+.fork::before{content:"";position:absolute;left:25%;right:25%;top:0;height:2px;background:var(--line)}
+.fork::after{content:"";position:absolute;left:50%;top:-30px;width:2px;height:30px;background:var(--line)}
+.fork i{position:absolute;top:0;width:2px;height:100%;background:var(--line)}
+.fork i::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top:9px solid var(--line);border-bottom:0}
+.fork i:nth-child(1){left:25%} .fork i:nth-child(2){left:75%}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.lane{display:flex;flex-direction:column;min-width:0}
+.lane-head{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:500;padding:6px 10px;border-radius:6px;align-self:center;margin-bottom:10px}
+.lane-head.isch{background:var(--isch-soft);color:var(--isch)}
+.lane-head.haem{background:var(--haem-soft);color:var(--haem)}
+.merge{position:relative;height:40px}
+.merge::before{content:"";position:absolute;left:25%;right:25%;bottom:12px;height:2px;background:var(--line)}
+.merge i{position:absolute;top:0;width:2px;height:28px;background:var(--line)}
+.merge i:nth-child(1){left:25%} .merge i:nth-child(2){left:75%}
+.merge::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-1px;border:7px solid transparent;border-top:9px solid var(--line);border-bottom:0}
+
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.tbl{overflow-x:auto}
+
+.bus{position:relative;height:28px}
+.bus::before{content:"";position:absolute;left:10%;right:10%;top:0;height:2px;background:var(--line)}
+.bus::after{content:"";position:absolute;left:50%;top:-30px;width:2px;height:30px;background:var(--line)}
+.mech{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:start}
+.mech .node{position:relative;font-size:14px}
+.mech .node::before{content:"";position:absolute;top:-29px;left:50%;width:2px;height:24px;background:var(--line)}
+.mech h3{color:var(--prev)}
+.mech .node.haem h3{color:var(--haem)}
+
+.allpts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.allpts .node h3{color:var(--prev)}
+
+details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600}
+summary:focus-visible{outline:2px solid var(--isch);outline-offset:3px}
+.gloss{columns:2 260px;column-gap:28px;margin-top:10px;font-size:13.5px}
+.gloss div{break-inside:avoid;padding:2px 0}
+.gloss b{font-family:var(--font-mono);font-weight:500}
+.sources{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.sources a{color:var(--isch)}
+.foot{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.disclaimer{font-size:13px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px}
+
+@media (max-width:1080px){
+  .mech{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bus,.mech .node::before{display:none}
+  .allpts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .lanes,.split2,.mech,.allpts{grid-template-columns:1fr}
+  .fork,.merge{display:none}
+  .lane + .lane{margin-top:22px}
+  body{font-size:14.5px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Stroke Pathway: acute management to secondary prevention</h1>
+  <p class="lede">Adult ischaemic stroke, transient ischaemic attack and intracerebral haemorrhage, built from the Stroke Foundation <em>Living Clinical Guidelines for Stroke Management</em>, <em>Therapeutic Guidelines: Neurology</em> and the Australian Commission on Safety and Quality in Health Care <em>Acute Stroke Clinical Care Standard</em>. Subarachnoid haemorrhage is out of scope.</p>
+  <div class="legend">
+    <span><i class="sw" style="border-color:var(--isch);background:var(--isch-soft)"></i>Ischaemic pathway</span>
+    <span><i class="sw" style="border-color:var(--haem);background:var(--haem-soft)"></i>Haemorrhagic pathway</span>
+    <span><i class="sw" style="border-color:var(--decide);background:var(--decide-soft);border-style:dashed"></i>Decision point</span>
+    <span><i class="sw" style="border-color:var(--drug);background:var(--drug-soft)"></i>Medication (dose · class · mechanism)</span>
+    <span><i class="sw" style="border-color:var(--prev);background:var(--prev-soft)"></i>Secondary prevention / Australian pearl</span>
+  </div>
+</header>
+
+<!-- STAGE 1 -->
+<div class="stage"><span class="tag">Stage 1</span><h2>Recognition and emergency assessment</h2></div>
+<div class="col">
+  <div class="node urgent">
+    <h3>Pre-hospital recognition</h3>
+    <ul>
+      <li><b>F</b>ace drooping, <b>A</b>rm weakness, <b>S</b>peech difficulty, <b>T</b>ime to call triple zero (000) — the Stroke Foundation FAST campaign.</li>
+      <li>Paramedics use a validated stroke screen and large vessel occlusion screen, record <b>time last known well</b>, check capillary blood glucose and pre-notify the receiving stroke centre (code stroke). Mobile stroke units operate in Melbourne and Adelaide.</li>
+      <li>Telestroke networks (for example Victorian Stroke Telemedicine, NSW Telestroke Service) support rural sites.</li>
+    </ul>
+  </div>
+  <div class="arrow"></div>
+  <div class="node urgent">
+    <span class="clock">Door-to-needle target &lt; 60 min</span>
+    <h3>Emergency department: code stroke</h3>
+    <ul>
+      <li>Airway, breathing, circulation; oxygen only if saturation &lt; 95%.</li>
+      <li>Exclude hypoglycaemia (&lt; 4 mmol/L) and other mimics (seizure with Todd paresis, migraine, functional, sepsis).</li>
+      <li>National Institutes of Health Stroke Scale (NIHSS) score for severity.</li>
+      <li><b>Immediate imaging:</b> non-contrast computed tomography (CT) brain + CT angiography (aortic arch to vertex) ± CT perfusion; magnetic resonance imaging (MRI) where rapidly available.</li>
+      <li>Bloods (do not delay thrombolysis waiting for them unless anticoagulant use or bleeding disorder suspected): full blood count, electrolytes and creatinine, coagulation profile, glucose, troponin; 12-lead electrocardiogram (ECG).</li>
+      <li>Nil by mouth until swallow screen passed.</li>
+    </ul>
+  </div>
+  <div class="arrow"></div>
+  <div class="node decide">
+    <h3>CT brain: is there haemorrhage?</h3>
+    <p style="font-size:13.5px;color:var(--muted)">CT cannot reliably distinguish infarct early; a normal CT in the first hours is expected in ischaemic stroke.</p>
+  </div>
+</div>
+
+<div class="fork" aria-hidden="true"><i></i><i></i></div>
+
+<div class="lanes">
+<!-- ISCHAEMIC LANE -->
+<div class="lane">
+  <div class="lane-head isch">No haemorrhage → Ischaemic stroke</div>
+  <div class="node decide">
+    <h3>Eligible for reperfusion?</h3>
+    <p style="font-size:13.5px">Potentially disabling deficit, onset or last known well within window, no contraindication.</p>
+  </div>
+  <div class="arrow label"><span>yes</span></div>
+  <div class="node isch">
+    <span class="clock">≤ 4.5 h from last known well</span>
+    <h3>Intravenous thrombolysis</h3>
+    <div class="drug"><b>Tenecteplase 0.25 mg/kg IV bolus (max 25 mg)</b>
+      <span class="moa"><i>Fibrinolytic</i> (genetically modified tissue plasminogen activator): binds fibrin and converts plasminogen to plasmin, lysing clot. Greater fibrin specificity and longer half-life than alteplase allow a single bolus. Preferred in many Australian centres.</span></div>
+    <div class="drug"><b>Or alteplase 0.9 mg/kg (max 90 mg): 10% bolus, remainder over 60 min</b>
+      <span class="moa"><i>Fibrinolytic</i> (recombinant tissue plasminogen activator): same mechanism, short half-life needs infusion.</span></div>
+    <ul>
+      <li>4.5–9 h or wake-up stroke: thrombolysis may be considered when CT perfusion or MRI shows salvageable penumbra (EXTEND, WAKE-UP trials).</li>
+      <li>Blood pressure must be &lt; 185/110 mmHg before and &lt; 180/105 mmHg for 24 h after.</li>
+      <li>Key contraindications: any intracranial haemorrhage, recent major surgery / head trauma / prior intracranial bleed, active bleeding, platelets &lt; 100 × 10⁹/L, international normalised ratio (INR) &gt; 1.7, therapeutic direct oral anticoagulant within 48 h (unless reversed or levels low per local protocol).</li>
+      <li>Neuro observations and blood pressure every 15 min for 2 h, then 30-minutely; watch for angio-oedema (more likely with angiotensin converting enzyme inhibitors) and haemorrhage.</li>
+    </ul>
+    <p class="warn">Do not delay thrombolysis while arranging thrombectomy.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node isch">
+    <span class="clock">≤ 6 h, or 6–24 h with imaging selection</span>
+    <h3>Endovascular thrombectomy</h3>
+    <ul>
+      <li>Large vessel occlusion of internal carotid artery or proximal middle cerebral artery (M1, selected M2): within 6 h; 6–24 h if perfusion imaging shows mismatch (DAWN, DEFUSE-3).</li>
+      <li>Basilar artery occlusion: within 24 h (ATTENTION, BAOCHE).</li>
+      <li>Large ischaemic core (low Alberta Stroke Program Early CT Score, ASPECTS 3–5): now supported by trials (SELECT2, ANGEL-ASPECT, RESCUE-Japan LIMIT).</li>
+      <li>Medium and distal vessel occlusions: recent trials (ESCAPE-MeVO, DISTAL) showed no benefit, so not routine.</li>
+      <li>Transfer to a comprehensive (thrombectomy-capable) stroke centre; "drip and ship" if needed.</li>
+      <li>After successful reperfusion, do <b>not</b> intensively lower systolic below 140 mmHg (harm in ENCHANTED2/MT, OPTIMAL-BP).</li>
+    </ul>
+  </div>
+  <div class="arrow"></div>
+  <div class="node isch">
+    <span class="clock">Within 48 h (24 h after lysis, once haemorrhage excluded)</span>
+    <h3>Early antiplatelet therapy</h3>
+    <div class="drug"><b>Aspirin 300 mg stat (oral, or rectal if swallow unsafe), then 100 mg daily</b>
+      <span class="moa"><i>Antiplatelet, salicylate</i>: irreversibly acetylates cyclo-oxygenase-1, blocking platelet thromboxane A2 production for the platelet's life (7–10 days).</span></div>
+    <p><b>Minor stroke (NIHSS ≤ 3) or high-risk transient ischaemic attack</b>, no thrombolysis and no cardioembolic source: dual antiplatelet therapy started within 24 h for <b>21 days</b>, then single agent (CHANCE, POINT).</p>
+    <div class="drug"><b>Clopidogrel 300–600 mg load, then 75 mg daily + aspirin 100 mg</b>
+      <span class="moa"><i>Antiplatelet, thienopyridine P2Y12 inhibitor</i>: prodrug activated by hepatic cytochrome P450 2C19; irreversibly blocks the P2Y12 adenosine diphosphate receptor, preventing glycoprotein IIb/IIIa activation.</span></div>
+    <div class="drug"><b>Alternative: ticagrelor 180 mg load, then 90 mg twice daily + aspirin (30 days, THALES; CHANCE-2)</b>
+      <span class="moa"><i>Antiplatelet, cyclopentyl-triazolopyrimidine P2Y12 inhibitor</i>: direct-acting, reversible P2Y12 blockade; useful if a cytochrome P450 2C19 loss-of-function carrier.</span></div>
+    <p class="pearl">Transient ischaemic attack: assess urgently, ideally within 24 h; MRI with diffusion-weighted imaging and carotid imaging. Do not rely on the ABCD² score alone (Age, Blood pressure, Clinical features, Duration, Diabetes) to triage.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node isch">
+    <h3>Ischaemic-specific acute care</h3>
+    <ul>
+      <li><b>Blood pressure</b> if not reperfused: lower only if &gt; 220/120 mmHg, and by no more than about 15% in 24 h.</li>
+      <li><b>Malignant middle cerebral artery infarction</b>: neurosurgical referral for decompressive hemicraniectomy within 48 h (strongest benefit age ≤ 60).</li>
+      <li><b>Cerebellar infarct</b> with mass effect or hydrocephalus: neurosurgery (ventricular drain / suboccipital decompression).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- HAEMORRHAGIC LANE -->
+<div class="lane">
+  <div class="lane-head haem">Haemorrhage → Intracerebral haemorrhage</div>
+  <div class="node decide">
+    <h3>Anticoagulated? Size and site?</h3>
+    <p style="font-size:13.5px">CT angiography for spot sign / underlying lesion (aneurysm, arteriovenous malformation). Glasgow Coma Scale and ICH score for prognosis.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node haem">
+    <span class="clock">Within 1 h of arrival</span>
+    <h3>Rapid blood pressure lowering</h3>
+    <ul>
+      <li>If systolic 150–220 mmHg: target systolic <b>~140 mmHg</b> within 1 hour and keep it stable (INTERACT2, INTERACT3 care bundle). Avoid large, abrupt falls and systolic &lt; 110 mmHg.</li>
+    </ul>
+    <div class="drug"><b>Labetalol 10–20 mg IV over 2 min, repeat every 10 min (max 300 mg) or infusion</b>
+      <span class="moa"><i>Combined alpha-1 and non-selective beta-adrenergic blocker</i>: reduces peripheral resistance without reflex tachycardia.</span></div>
+    <div class="drug"><b>Glyceryl trinitrate IV infusion (titrated) or hydralazine 5–10 mg IV</b>
+      <span class="moa"><i>Glyceryl trinitrate — organic nitrate</i>: nitric oxide donor, raises cyclic guanosine monophosphate, mainly venodilation. <i>Hydralazine — direct arteriolar vasodilator</i>.</span></div>
+    <p class="pearl">INTERACT3 bundle (blood pressure, glucose, temperature, anticoagulation reversal) reduced death and disability. These same agents are used to bring blood pressure under 185/110 before thrombolysis.</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node haem urgent">
+    <span class="clock">Immediately</span>
+    <h3>Reverse anticoagulation</h3>
+    <div class="tbl"><table>
+      <tr><th>Agent</th><th>Reversal (Australian consensus)</th></tr>
+      <tr><td>Warfarin</td><td>
+        <div class="drug"><b>Prothrombinex-VF 50 units/kg IV</b><span class="moa"><i>Three-factor prothrombin complex concentrate</i> (factors II, IX, X): directly replaces vitamin K-dependent clotting factors.</span></div>
+        <div class="drug" style="margin-top:6px"><b>+ Vitamin K (phytomenadione) 5–10 mg IV</b><span class="moa"><i>Fat-soluble vitamin</i>: cofactor for hepatic gamma-carboxylation of factors II, VII, IX, X; sustains reversal after the concentrate wears off.</span></div>
+        <p style="font-size:12.5px;color:var(--muted);margin-top:4px">Fresh frozen plasma only if Prothrombinex-VF unavailable. Recheck INR at 30 min.</p></td></tr>
+      <tr><td>Dabigatran</td><td><div class="drug"><b>Idarucizumab 5 g IV</b><span class="moa"><i>Humanised monoclonal antibody fragment</i>: binds dabigatran with very high affinity, neutralising it within minutes.</span></div></td></tr>
+      <tr><td>Apixaban, rivaroxaban</td><td><div class="drug"><b>Prothrombin complex concentrate 50 units/kg per local protocol; andexanet alfa where available</b><span class="moa"><i>Andexanet alfa — recombinant modified factor Xa decoy</i>: catalytically inactive, binds and sequesters factor Xa inhibitors.</span></div></td></tr>
+      <tr><td>Unfractionated heparin</td><td><div class="drug"><b>Protamine sulfate 1 mg per 100 units heparin given in last 2–3 h (max 50 mg)</b><span class="moa"><i>Heparin antagonist</i>: strongly basic protein that binds acidic heparin, forming an inactive complex.</span></div></td></tr>
+    </table></div>
+    <p class="warn">Tranexamic acid is not routinely recommended for spontaneous intracerebral haemorrhage (TICH-2). Platelet transfusion for patients on antiplatelets is harmful (PATCH).</p>
+  </div>
+  <div class="arrow"></div>
+  <div class="node haem">
+    <h3>Neurosurgical referral</h3>
+    <ul>
+      <li>Cerebellar haemorrhage &gt; 3 cm, brainstem compression or hydrocephalus → surgical evacuation / external ventricular drain.</li>
+      <li>Selected superficial lobar haematomas (30–80 mL) within 24 h: minimally invasive evacuation may improve outcome (ENRICH).</li>
+      <li>Intraventricular extension with hydrocephalus → external ventricular drain.</li>
+      <li>Venous thromboembolism prophylaxis: intermittent pneumatic compression from admission; consider low molecular weight heparin after 48 h once haematoma stable.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div class="merge" aria-hidden="true"><i></i><i></i></div>
+
+<!-- STAGE 2 -->
+<div class="stage"><span class="tag">Stage 2</span><h2>Stroke unit care (all stroke types)</h2></div>
+<div class="col">
+  <div class="node">
+    <p>Admit to a dedicated <b>stroke unit</b> with a multidisciplinary team; this alone reduces death and dependency. Follow the Australian <b>Quality in Acute Stroke Care (QASC)</b> "fever, sugar, swallow" protocols.</p>
+    <div class="split2">
+      <div>
+        <h3>Fever</h3>
+        <div class="drug"><b>Paracetamol 1 g oral/IV 6-hourly for temperature ≥ 37.5 °C</b><span class="moa"><i>Analgesic and antipyretic</i>: central cyclo-oxygenase inhibition reduces hypothalamic prostaglandin E2.</span></div>
+      </div>
+      <div>
+        <h3>Sugar</h3>
+        <div class="drug"><b>Insulin (subcutaneous or infusion) if glucose &gt; 10 mmol/L</b><span class="moa"><i>Hormone, glucose-lowering</i>: promotes cellular glucose uptake via glucose transporter 4 and suppresses hepatic glucose output. Avoid hypoglycaemia.</span></div>
+      </div>
+    </div>
+    <ul>
+      <li><b>Swallow:</b> screen before any oral food, fluid or medication; speech pathology assessment if failed. Nasogastric feeding if unsafe beyond a few days.</li>
+      <li><b>Venous thromboembolism prevention</b> (immobile patients): intermittent pneumatic compression (CLOTS 3). Graduated compression stockings are not recommended.
+        <div class="drug" style="margin-top:6px"><b>Enoxaparin 40 mg subcutaneous daily (ischaemic stroke, high risk, weighed against bleeding)</b><span class="moa"><i>Low molecular weight heparin</i>: potentiates antithrombin, mainly inhibiting factor Xa.</span></div></li>
+      <li><b>Mobilisation:</b> avoid very early, high-dose mobilisation within 24 h (AVERT); then short, frequent sessions.</li>
+      <li>Screen for mood (depression, anxiety), cognition, aphasia, continence, pressure areas, falls, delirium and nutrition. Start rehabilitation early.</li>
+      <li>Investigate stroke mechanism (below) and start secondary prevention <b>before discharge</b>; discharge with a care plan and enrol in the Australian Stroke Clinical Registry.</li>
+    </ul>
+  </div>
+  <div class="arrow"></div>
+  <div class="node decide">
+    <h3>What caused the stroke?</h3>
+    <p style="font-size:13.5px">Work-up: carotid duplex or CT angiography, ECG and inpatient cardiac monitoring, echocardiography (transthoracic ± transoesophageal with bubble study if young), lipids, glycated haemoglobin (HbA1c); consider thrombophilia / vasculitis screen in young patients. Classified using the TOAST (Trial of Org 10172 in Acute Stroke Treatment) scheme.</p>
+  </div>
+</div>
+
+<!-- STAGE 3 -->
+<div class="bus" aria-hidden="true" style="margin-top:2px"></div>
+<div class="mech">
+  <div class="node prev">
+    <h3>Atrial fibrillation / cardioembolic</h3>
+    <p>Oral anticoagulation, <b>not</b> antiplatelets. Direct oral anticoagulants preferred over warfarin.</p>
+    <div class="drug"><b>Apixaban 5 mg twice daily</b> (2.5 mg if 2 of: age ≥ 80, weight ≤ 60 kg, creatinine ≥ 133 µmol/L)<span class="moa"><i>Direct factor Xa inhibitor</i>.</span></div>
+    <div class="drug"><b>Rivaroxaban 20 mg daily with food</b> (15 mg if creatinine clearance 15–49 mL/min)<span class="moa"><i>Direct factor Xa inhibitor</i>.</span></div>
+    <div class="drug"><b>Dabigatran 150 mg twice daily</b> (110 mg if age ≥ 75 / bleeding risk; avoid if clearance &lt; 30)<span class="moa"><i>Direct thrombin (factor IIa) inhibitor</i>.</span></div>
+    <div class="drug"><b>Warfarin (INR 2–3)</b> for mechanical valves or moderate–severe mitral stenosis<span class="moa"><i>Vitamin K antagonist</i>: inhibits vitamin K epoxide reductase, reducing factors II, VII, IX, X.</span></div>
+    <p><b>Timing:</b> early start is supported by recent trials (ELAN, OPTIMAS, TIMING): roughly within 48 h for minor–moderate stroke and day 6–7 for major stroke. Check current guideline wording and local protocol.</p>
+    <p>Cryptogenic stroke: prolonged rhythm monitoring (for example implantable loop recorder) to detect paroxysmal atrial fibrillation.</p>
+    <p>Anticoagulation contraindicated: left atrial appendage occlusion.</p>
+  </div>
+  <div class="node prev">
+    <h3>Large artery (carotid) atherosclerosis</h3>
+    <p>Symptomatic internal carotid stenosis, graded by North American Symptomatic Carotid Endarterectomy Trial (NASCET) criteria:</p>
+    <ul>
+      <li><b>70–99%:</b> carotid endarterectomy, ideally <b>within 2 weeks</b> of the event, at a low-complication centre.</li>
+      <li><b>50–69%:</b> consider endarterectomy in selected patients (greater benefit in men, older patients, recent event).</li>
+      <li><b>&lt; 50% or occlusion:</b> no surgery; best medical therapy.</li>
+      <li>Carotid stenting: alternative for selected patients (restenosis, radiation-induced stenosis, surgically hostile neck); higher periprocedural stroke risk in older patients.</li>
+    </ul>
+    <p>Plus long-term antiplatelet, high-intensity statin and blood pressure control.</p>
+    <p>Asymptomatic stenosis: best medical therapy is the default.</p>
+  </div>
+  <div class="node prev">
+    <h3>Small vessel (lacunar) / other non-cardioembolic</h3>
+    <p>Long-term single antiplatelet therapy (one of):</p>
+    <div class="drug"><b>Aspirin 100 mg daily</b><span class="moa"><i>Cyclo-oxygenase-1 inhibitor</i> (salicylate antiplatelet).</span></div>
+    <div class="drug"><b>Clopidogrel 75 mg daily</b><span class="moa"><i>P2Y12 inhibitor</i> (thienopyridine antiplatelet).</span></div>
+    <div class="drug"><b>Aspirin 25 mg + modified-release dipyridamole 200 mg twice daily</b><span class="moa"><i>Dipyridamole — phosphodiesterase inhibitor and adenosine reuptake inhibitor</i>: raises platelet cyclic adenosine monophosphate. Headache common.</span></div>
+    <p class="warn">Long-term aspirin + clopidogrel beyond the first weeks increases bleeding without benefit (MATCH, CHARISMA).</p>
+    <p>Rare causes (dissection, vasculitis, antiphospholipid syndrome) need cause-specific treatment.</p>
+  </div>
+  <div class="node prev">
+    <h3>Embolic stroke of undetermined source + patent foramen ovale</h3>
+    <ul>
+      <li>Age 18–60 with no other cause and a patent foramen ovale with high-risk features (atrial septal aneurysm or large shunt): <b>percutaneous closure + antiplatelet</b> (CLOSE, RESPECT, REDUCE).</li>
+      <li>Embolic stroke of undetermined source without atrial fibrillation: antiplatelet; empirical anticoagulation not superior (NAVIGATE ESUS, RE-SPECT ESUS).</li>
+    </ul>
+  </div>
+  <div class="node haem">
+    <h3>After intracerebral haemorrhage</h3>
+    <ul>
+      <li><b>Blood pressure control is the most important measure</b>; target &lt; 130/80 mmHg.</li>
+      <li>Restarting an antiplatelet for a strong vascular indication appears safe (RESTART).</li>
+      <li>Atrial fibrillation after haemorrhage: individualise with the neurologist (consider haemorrhage location, cerebral amyloid angiopathy markers); options include delayed direct oral anticoagulant or left atrial appendage occlusion.</li>
+      <li>Limit alcohol; avoid sympathomimetic drugs.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="arrow" style="margin-top:6px"></div>
+
+<div class="stage"><span class="tag">Stage 3</span><h2>Secondary prevention for every patient</h2></div>
+<div class="allpts">
+  <div class="node prev">
+    <h3>Blood pressure</h3>
+    <p>Start or optimise before discharge once stable. Target <b>&lt; 130/80 mmHg</b> for most patients (lower targets reduce recurrence; PROGRESS showed benefit even if normotensive).</p>
+    <div class="drug"><b>Perindopril 4–8 mg daily</b><span class="moa"><i>Angiotensin converting enzyme inhibitor</i>: blocks conversion of angiotensin I to II, reducing vasoconstriction and aldosterone.</span></div>
+    <div class="drug"><b>+ Indapamide 1.25–2.5 mg daily</b><span class="moa"><i>Thiazide-like diuretic</i>: inhibits sodium-chloride cotransporter in distal convoluted tubule.</span></div>
+    <div class="drug"><b>Or candesartan / amlodipine</b><span class="moa"><i>Candesartan — angiotensin II receptor blocker</i> (type 1 receptor). <i>Amlodipine — dihydropyridine calcium channel blocker</i>: blocks L-type channels in arteriolar smooth muscle.</span></div>
+  </div>
+  <div class="node prev">
+    <h3>Lipids (ischaemic stroke / transient ischaemic attack)</h3>
+    <p>Target low-density lipoprotein (LDL) cholesterol <b>&lt; 1.8 mmol/L</b> (Treat Stroke to Target trial).</p>
+    <div class="drug"><b>Atorvastatin 40–80 mg daily (or rosuvastatin 20–40 mg)</b><span class="moa"><i>Statin, HMG-CoA (3-hydroxy-3-methylglutaryl coenzyme A) reductase inhibitor</i>: cuts hepatic cholesterol synthesis, upregulating LDL receptors; plaque-stabilising.</span></div>
+    <div class="drug"><b>+ Ezetimibe 10 mg daily if above target</b><span class="moa"><i>Cholesterol absorption inhibitor</i>: blocks Niemann-Pick C1-Like 1 transporter in the small intestine.</span></div>
+    <div class="drug"><b>Evolocumab (Pharmaceutical Benefits Scheme criteria)</b><span class="moa"><i>PCSK9 (proprotein convertase subtilisin/kexin type 9) inhibitor monoclonal antibody</i>: stops LDL receptor degradation.</span></div>
+  </div>
+  <div class="node prev">
+    <h3>Diabetes</h3>
+    <p>Individualised HbA1c, usually ≤ 7% (53 mmol/mol). Prefer agents with proven cardiovascular benefit.</p>
+    <div class="drug"><b>Metformin</b><span class="moa"><i>Biguanide</i>: activates AMP-activated protein kinase, reducing hepatic gluconeogenesis.</span></div>
+    <div class="drug"><b>Glucagon-like peptide-1 receptor agonist (semaglutide, dulaglutide)</b><span class="moa"><i>Incretin mimetic</i>: glucose-dependent insulin release, less glucagon, slower gastric emptying, weight loss; reduced stroke in cardiovascular outcome trials.</span></div>
+    <div class="drug"><b>Sodium-glucose cotransporter 2 inhibitor (empagliflozin)</b><span class="moa"><i>Gliflozin</i>: blocks proximal tubule glucose reabsorption; heart failure and kidney benefit.</span></div>
+  </div>
+  <div class="node prev">
+    <h3>Smoking</h3>
+    <p>Brief advice + Quitline (13 78 48) + pharmacotherapy.</p>
+    <div class="drug"><b>Varenicline 1 mg twice daily (after titration), 12 weeks</b><span class="moa"><i>Partial agonist at α4β2 nicotinic acetylcholine receptors</i>: eases withdrawal and blunts reward from smoking.</span></div>
+    <div class="drug"><b>Nicotine replacement therapy (patch + short-acting form)</b><span class="moa"><i>Nicotinic receptor agonist</i>: replaces nicotine without tobacco toxins.</span></div>
+  </div>
+  <div class="node prev">
+    <h3>Lifestyle</h3>
+    <ul>
+      <li>Alcohol: ≤ 10 standard drinks a week and ≤ 4 on any day (National Health and Medical Research Council).</li>
+      <li>Physical activity: 150–300 min moderate activity a week as able; reduce sitting.</li>
+      <li>Mediterranean-style diet, salt &lt; 5 g/day, weight management.</li>
+      <li>Screen for obstructive sleep apnoea.</li>
+      <li>Avoid oestrogen-containing contraception / hormone therapy where possible.</li>
+    </ul>
+  </div>
+  <div class="node prev">
+    <h3>Driving, follow-up and return to life</h3>
+    <ul>
+      <li><b>Austroads <em>Assessing Fitness to Drive</em>:</b> private licence, no driving for at least 4 weeks after stroke and 2 weeks after transient ischaemic attack; commercial licence at least 3 months after stroke. Longer if visual field loss, cognitive or motor deficit.</li>
+      <li>Review by general practitioner within weeks of discharge; GP management plan and team care arrangements for allied health.</li>
+      <li>Ongoing rehabilitation, return to work, carer support, StrokeLine (1800 787 653).</li>
+      <li>Check adherence at every visit; it is the biggest cause of failed secondary prevention.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="foot">
+  <details>
+    <summary>Abbreviations and trial names</summary>
+    <div class="gloss">
+      <div><b>ASPECTS</b> Alberta Stroke Program Early CT Score</div>
+      <div><b>CT</b> computed tomography</div>
+      <div><b>ECG</b> electrocardiogram</div>
+      <div><b>HbA1c</b> glycated haemoglobin</div>
+      <div><b>INR</b> international normalised ratio</div>
+      <div><b>LDL</b> low-density lipoprotein</div>
+      <div><b>MRI</b> magnetic resonance imaging</div>
+      <div><b>NASCET</b> North American Symptomatic Carotid Endarterectomy Trial</div>
+      <div><b>NIHSS</b> National Institutes of Health Stroke Scale</div>
+      <div><b>PCSK9</b> proprotein convertase subtilisin/kexin type 9</div>
+      <div><b>QASC</b> Quality in Acute Stroke Care</div>
+      <div><b>TOAST</b> Trial of Org 10172 in Acute Stroke Treatment</div>
+      <div><b>AVERT</b> A Very Early Rehabilitation Trial</div>
+      <div><b>CHANCE</b> Clopidogrel in High-risk patients with Acute Non-disabling Cerebrovascular Events</div>
+      <div><b>POINT</b> Platelet-Oriented Inhibition in New TIA and minor ischaemic stroke</div>
+      <div><b>THALES</b> Ticagrelor and Aspirin or Aspirin Alone in Acute Ischemic Stroke or TIA</div>
+      <div><b>INTERACT</b> Intensive Blood Pressure Reduction in Acute Cerebral Haemorrhage Trial</div>
+      <div><b>ENRICH</b> Early Minimally Invasive Removal of Intracerebral Hemorrhage</div>
+      <div><b>ELAN</b> Early versus Late initiation of direct oral Anticoagulants in post-ischaemic stroke patients with atrial fibrillation</div>
+      <div><b>OPTIMAS</b> Optimal Timing of Anticoagulation After Acute Ischaemic Stroke</div>
+      <div><b>ESUS</b> embolic stroke of undetermined source</div>
+      <div><b>PROGRESS</b> Perindopril Protection Against Recurrent Stroke Study</div>
+    </div>
+  </details>
+  <details open>
+    <summary>Sources</summary>
+    <div class="sources">
+      <p>Stroke Foundation. <em>Living Clinical Guidelines for Stroke Management</em> (Australia and New Zealand), via <a href="https://informme.org.au/guidelines/living-clinical-guidelines-for-stroke-management" target="_blank" rel="noopener">InformMe</a>.</p>
+      <p>Therapeutic Guidelines Limited. <em>Therapeutic Guidelines: Neurology</em> (eTG complete), stroke and transient ischaemic attack topics.</p>
+      <p>Australian Commission on Safety and Quality in Health Care. <em>Acute Stroke Clinical Care Standard</em> (2019, updated).</p>
+      <p>Bladin CF, et al. Australian and New Zealand living clinical guidelines for stroke management: update. <a href="https://www.mja.com.au/journal/2022/216/9/update-living-guidelines-stroke-care" target="_blank" rel="noopener">Med J Aust 2022;216(9)</a>.</p>
+      <p>Tran HA, et al. An update of consensus guidelines for warfarin reversal. Med J Aust 2013;198(4):198–199 (Australasian Society of Thrombosis and Haemostasis).</p>
+      <p>Austroads. <em>Assessing Fitness to Drive</em> (2022).</p>
+      <p>Middleton S, et al. QASC trial. Lancet 2011;378:1699–1706. Werring DJ, et al. OPTIMAS. <a href="https://www.acc.org/Latest-in-Cardiology/Clinical-Trials/2024/11/05/14/11/optimas" target="_blank" rel="noopener">Lancet 2024</a>. Goyal M, et al. ESCAPE-MeVO. N Engl J Med 2025. Large-core thrombectomy review: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12418464/" target="_blank" rel="noopener">PMC12418464</a>.</p>
+    </div>
+  </details>
+  <p class="disclaimer">Study aid for medical students. The Stroke Foundation guideline is "living" and updated as trials report; confirm doses and eligibility against the current guideline, eTG and your hospital's stroke protocol before clinical use.</p>
+</div>
+</div>
